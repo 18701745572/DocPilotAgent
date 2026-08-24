@@ -1,69 +1,75 @@
 # DocPilotAgent
 
-研发文档助手智能体（只读型 RAG 助手）。
+> 研发文档助手智能体 · 只读型 RAG 助手
 
 读取本地知识库技术文档，回答研发人员问题；可检索接口文档、报错日志，生成调试建议。**不可修改代码**。
 
-## 特性
+---
 
-- **RAG + 多数据源**：本地 Markdown 知识库 + 报错日志检索
-- **跨会话记忆**：问答历史向量化持久化到 Milvus Lite，按语义相关性召回
-- **输出权限约束**：只读工具白名单，从能力层杜绝代码修改（工具层 + 提示词双保险）
-- **OpenAI 兼容**：可切换 OpenAI / 豆包 / DeepSeek / Qwen 等接口
-- **CLI 工具**：`index` / `ask` / `reset`
+## 设计目标（三大练习点）
 
-## 安装
-
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -e .
-cp .env.example .env   # 编辑填入 API Key
-```
-
-## 配置
-
-编辑 `.env`：
-
-| 变量 | 说明 |
+| 练习点 | 落地方式 |
 |---|---|
-| `OPENAI_API_KEY` | API 密钥 |
-| `OPENAI_BASE_URL` | 兼容接口地址（可换豆包/DeepSeek） |
-| `LLM_MODEL` / `EMBEDDING_MODEL` | 模型名 |
-| `DOCS_DIR` / `LOGS_DIR` | 知识库 / 日志目录 |
-| `VECTOR_DB_PATH` | Milvus Lite 本地文件 |
+| **RAG + 多数据源** | 本地 Markdown 知识库 + 报错日志检索 |
+| **记忆管理** | 跨会话问答历史向量化持久化到 Milvus Lite，按语义相关性召回 |
+| **输出权限约束** | 只读工具白名单（工具层 + 提示词双保险），从能力层杜绝代码修改 |
 
-## 用法
+---
+
+## 文档索引（以终为始）
+
+本项目采用「文档先行」方式，所有需求、设计、接口已锁定为最终形态：
+
+| 文档 | 内容 |
+|---|---|
+| [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) | 功能/非功能需求、输出权限约束、典型用例、验收标准 |
+| [docs/DESIGN.md](docs/DESIGN.md) | 技术选型、模块划分、数据流、关键决策（ADR）、向量库设计 |
+| [docs/API.md](docs/API.md) | CLI 命令规范（index/ask/reset）、参数、退出码 |
+| [docs/CONFIG.md](docs/CONFIG.md) | 环境变量、`.env` 模板、兼容接口对照、目录约定 |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | P0~P7 阶段划分、任务拆分、阶段验收标准 |
+
+---
+
+## 技术选型（已锁定）
+
+- **语言**：Python ≥ 3.10
+- **编排**：LangChain ≥ 0.2
+- **LLM**：OpenAI 兼容（可切豆包/DeepSeek/Qwen）
+- **向量库**：Milvus Lite（本地文件，无需 Docker）
+- **CLI**：Typer + Rich
+
+详见 [docs/DESIGN.md](docs/DESIGN.md) 第 1 节。
+
+---
+
+## 快速开始（实现完成后）
 
 ```bash
-# 1. 索引知识库
-docpilot index
-
-# 2. 提问
+pip install -e .
+cp .env.example .env   # 填入 OPENAI_API_KEY
+docpilot index          # 索引 docs/
 docpilot ask "如何排查 OOM？"
-
-# 3. 显示中间步骤
-docpilot ask "用户接口 40001 是什么错误？" --verbose
-
-# 4. 清空跨会话记忆
-docpilot reset
+docpilot reset          # 清空跨会话记忆
 ```
 
-## 架构
+> 当前仓库仅含文档，代码尚未实现。开发计划见 [docs/ROADMAP.md](docs/ROADMAP.md)。
+
+---
+
+## 架构概览
 
 ```
-CLI (cli.py)
- └─ agent.py ── 工具白名单 (tools/, 全部只读)
-                ├─ search_docs → Milvus 文档集合
-                ├─ read_file   → docs/ logs/ (路径白名单)
-                └─ search_logs → logs/
- └─ memory.py  → Milvus 记忆集合 (跨会话持久化)
+CLI
+ └─ Agent ── 只读工具白名单（无写工具）
+              ├─ search_docs → Milvus 文档集合
+              ├─ read_file   → docs/logs 路径白名单
+              └─ search_logs → logs/ 关键词搜索
+ └─ Memory  → Milvus 记忆集合（跨会话持久化）
 ```
 
-## 练习点
+完整数据流与模块职责见 [docs/DESIGN.md](docs/DESIGN.md)。
 
-- RAG + 多数据源接入
-- 记忆管理（跨会话向量化持久化）
-- 输出权限约束（工具白名单 + 提示词）
+---
 
 ## License
 
