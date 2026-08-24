@@ -16,9 +16,9 @@
 
 ---
 
-## 文档索引（以终为始 · 11 份）
+## 文档索引（以终为始 · 16 份）
 
-本项目采用「文档先行」方式，需求、设计、接口、安全、评估、测试已全部锁定为最终形态。
+本项目采用「文档先行」方式（[ADR-005](docs/adr/0005-docs-first.md)），需求、设计、接口、安全、评估、测试、运营已全部锁定为最终形态。
 
 ### 规格层（做什么）
 | 文档 | 内容 |
@@ -28,10 +28,11 @@
 ### 设计层（怎么做）
 | 文档 | 内容 |
 |---|---|
-| [docs/DESIGN.md](docs/DESIGN.md) | 技术选型、模块划分、数据流、关键决策（ADR）、向量库设计 |
+| [docs/DESIGN.md](docs/DESIGN.md) | 技术选型、模块划分、数据流、向量库设计 |
 | [docs/PROMPT.md](docs/PROMPT.md) | 智能体 persona、工具选择策略、拒答模板、引用格式、记忆槽位 |
 | [docs/TOOLS.md](docs/TOOLS.md) | 工具白名单规格（schema、返回格式、错误模式、示例 I/O） |
 | [docs/SECURITY.md](docs/SECURITY.md) | 三层防御模型、威胁模型、对抗用例、权限审计 |
+| [docs/adr/](docs/adr/README.md) | 架构决策记录（ADR-001~005 + 模板） |
 
 ### 接口层（怎么用）
 | 文档 | 内容 |
@@ -50,6 +51,14 @@
 |---|---|
 | [docs/ROADMAP.md](docs/ROADMAP.md) | P0~P7 阶段划分、任务拆分、阶段验收标准 |
 | [docs/TRACEABILITY.md](docs/TRACEABILITY.md) | 需求→模块→命令→阶段→测试→评测双向追溯矩阵 |
+| [docs/CHANGELOG.md](docs/CHANGELOG.md) | 文档/代码/prompt 版本对齐与变更登记 |
+| [docs/RELEASE.md](docs/RELEASE.md) | 发版门禁、版本策略、回滚流程 |
+
+### 工程运营层（怎么养护）
+| 文档 | 内容 |
+|---|---|
+| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | 开发环境、测试、mock、IDE、贡献流程 |
+| [docs/DATA_CURATION.md](docs/DATA_CURATION.md) | 知识库/日志内容规范、index 工作流、质量治理 |
 
 ---
 

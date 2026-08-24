@@ -73,6 +73,11 @@
 | [EVAL](./EVAL.md) | 好不好 | 评审 |
 | [TEST_PLAN](./TEST_PLAN.md) | 怎么验 | 开发者/CI |
 | [TRACEABILITY](./TRACEABILITY.md) | 改一处影响哪 | 维护者 |
+| [DEVELOPMENT](./DEVELOPMENT.md) | 怎么开发 | 开发者 |
+| [DATA_CURATION](./DATA_CURATION.md) | 知识库怎么养 | 内容 owner |
+| [CHANGELOG](./CHANGELOG.md) | 改了什么 | 所有人 |
+| [RELEASE](./RELEASE.md) | 怎么发版 | 维护者 |
+| [adr/](./adr/README.md) | 为什么这么选 | 评审/维护者 |
 
 ---
 
@@ -97,5 +102,7 @@
 | 需求条目数 | 5 FR 组 + 8 NFR |
 | 对抗用例 | 6 条（T-S1~S6） |
 | 评测维度 | 4 类 |
-| 文档数 | 11 份（含本表） |
+| 文档数 | 16 份（顶层）+ ADR 子目录 7 份 |
+| 决策记录 | 5 条 ADR（[adr/](./adr/README.md)） |
 | 实现 | 未开始（待按 [ROADMAP](./ROADMAP.md) P0 启动） |
+| 文档集版本 | docs-v1（见 [CHANGELOG](./CHANGELOG.md)） |
