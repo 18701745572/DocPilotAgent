@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docpilot"
+version = "0.1.0"
+description = "研发文档助手智能体 - 只读型 RAG 助手"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [{ name = "DocPilotAgent Contributors" }]
+keywords = ["rag", "agent", "llm", "langchain", "milvus"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Documentation",
+]
+
+dependencies = [
+    "langchain>=0.2",
+    "langchain-openai>=0.1",
+    "langchain-community>=0.2",
+    "langchain-milvus>=0.1",
+    "pymilvus>=2.4",
+    "milvus-lite>=2.4",
+    "tiktoken>=0.7",
+    "python-dotenv>=1.0",
+    "typer>=0.12",
+    "rich>=13",
+    "pydantic>=2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-mock>=3.12",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+
+[project.scripts]
+docpilot = "docpilot.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+docpilot = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+ignore_missing_imports = true

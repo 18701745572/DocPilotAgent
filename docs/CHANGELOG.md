@@ -12,8 +12,8 @@
 
 | 发布版本 | 文档集版本 | 代码版本 | Prompt 版本 | 发布日期 | 说明 |
 |---|---|---|---|---|---|
-| v0.1.0-docs | docs-v1 | - | - | 2026-08-24 | 文档先行定稿，11 → 16 份 |
-| v0.1.0 | docs-v1 | code-v1 | prompt-v1.0 | 待定 | 首个可用版本（[ROADMAP](./ROADMAP.md) P7 完成） |
+| v0.1.0-docs | docs-v1 | - | - | 2026-08-24 | 文档先行定稿，11 → 17 份 |
+| v0.1.0 | docs-v1 | code-v1 | prompt-v1.0 | 2026-08-24 | 首个可用版本（[ROADMAP](./ROADMAP.md) P0~P7 完成） |
 
 ### 版本号约定
 
@@ -27,6 +27,43 @@
 ---
 
 ## 2. 变更条目
+
+### [v0.1.0] - 2026-08-24
+
+#### Added（按 [EXECUTION_GUIDE](./EXECUTION_GUIDE.md) P0~P7 顺序实现）
+- **P0 项目骨架**：`pyproject.toml`、`.env.example`、`.gitignore`、`src/docpilot/__init__.py`、`config.py`
+- **P1 基础设施**：`llm.py`（ChatOpenAI 封装）、`embeddings.py`（OpenAIEmbeddings 封装）、`vectorstore.py`（Milvus Lite 文档/记忆集合）
+- **P2 RAG 链路**：`loader.py`（Markdown 加载切分）、`retriever.py`（文档检索）、示例知识库 `docs/api/user-service.md`、`docs/troubleshooting/oom.md`、`logs/app.log`
+- **P3 跨会话记忆**：`memory.py` 的 `PersistentMemory`（add/recall/reset，向量化持久化）
+- **P4 只读工具白名单**（核心练习点）：`tools/search_docs.py`、`tools/read_file.py`（路径白名单 + 软链防御）、`tools/search_logs.py`、`tools/__init__.py` 的 `ALL_TOOLS`
+- **P5 智能体编排**：`agent.py` 含 `SYSTEM_PROMPT`（9 节完整规格）、`build_agent()`、`ask()`（记忆召回 → 注入 → 执行 → 写入）
+- **P6 CLI**：`cli.py` 用 Typer + Rich 实现 `index`/`ask`/`reset` 三命令
+
+#### Changed
+- 适配 LangChain 1.x：`agent.py` 由 `AgentExecutor/create_tool_calling_agent` 改用 `create_agent`（LangGraph 风格），保留 SYSTEM_PROMPT 与工具白名单不变
+- `cli.py` 由占位升级为完整 Typer 应用
+
+#### Security
+- 三层防御全部落地：L1 SYSTEM_PROMPT 约束、L2 `ALL_TOOLS` 仅 3 只读工具、L3 `read_file` 路径白名单 + 符号链接检查
+- 对抗用例 T-S2/S3/S5/S6 自动化通过（路径穿越、越权读取、软链逃逸、无写工具）
+- T-S1/S4（prompt injection）依赖真实 LLM,SYSTEM_PROMPT 已含拒答模板与信号词
+
+#### 验收（依据 [RELEASE.md](./RELEASE.md) §3.1 必查项）
+- [x] `python -m compileall src` 通过
+- [x] `pip install -e .` 成功，`docpilot --help` 列出三命令
+- [x] `docpilot index` 空目录退出码 1，正常目录输出片段数
+- [x] 工具白名单断言：`ALL_TOOLS` 恰为 3 个只读工具
+- [x] read_file 路径对抗 7 条全过（含软链 UC-S6）
+- [x] SYSTEM_PROMPT 内容断言通过
+- [x] 文档对齐：config 字段 / ALL_TOOLS / SYSTEM_PROMPT / CLI 接口全部一致
+- [ ] 端到端 ask 与跨会话记忆持久化：需真实 OpenAI 兼容 API Key（沙盒无 Key,留人工验证）
+- [ ] 兼容接口验证（豆包/DeepSeek）：留人工验证
+
+#### 已知限制（依据 [ROADMAP](./ROADMAP.md) 后续项）
+- LLM 行为对抗（T-S1/S4）需真实 API Key 人工评审
+- 跨进程记忆持久化测试需真实嵌入服务
+- 记忆按 session_id 删除未实现（当前为集合级 drop）
+- LangChain 1.x API 与 [DESIGN.md](./DESIGN.md) §3.2 描述的 AgentExecutor 略有差异，已用 `create_agent` 等效替代
 
 ### [Unreleased]
 
