@@ -16,9 +16,11 @@
 
 ---
 
-## 文档索引（以终为始 · 16 份）
+## 文档索引（以终为始 · 17 份）
 
 本项目采用「文档先行」方式（[ADR-005](docs/adr/0005-docs-first.md)），需求、设计、接口、安全、评估、测试、运营已全部锁定为最终形态。
+
+> **新入手者直接看 [docs/EXECUTION_GUIDE.md](docs/EXECUTION_GUIDE.md)** —— 按 P0~P7 共 30 条提示词顺序执行即可从零完成项目。
 
 ### 规格层（做什么）
 | 文档 | 内容 |
@@ -59,6 +61,11 @@
 |---|---|
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | 开发环境、测试、mock、IDE、贡献流程 |
 | [docs/DATA_CURATION.md](docs/DATA_CURATION.md) | 知识库/日志内容规范、index 工作流、质量治理 |
+
+### 执行层（怎么从头做）
+| 文档 | 内容 |
+|---|---|
+| [docs/EXECUTION_GUIDE.md](docs/EXECUTION_GUIDE.md) | P0~P7 共 30 条可顺序执行的提示词,任何人按序执行即可完成项目 |
 
 ---
 

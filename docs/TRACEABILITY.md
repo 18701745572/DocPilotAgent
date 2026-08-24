@@ -77,6 +77,7 @@
 | [DATA_CURATION](./DATA_CURATION.md) | 知识库怎么养 | 内容 owner |
 | [CHANGELOG](./CHANGELOG.md) | 改了什么 | 所有人 |
 | [RELEASE](./RELEASE.md) | 怎么发版 | 维护者 |
+| [EXECUTION_GUIDE](./EXECUTION_GUIDE.md) | 怎么从头做 | 新入手者 |
 | [adr/](./adr/README.md) | 为什么这么选 | 评审/维护者 |
 
 ---
@@ -102,7 +103,8 @@
 | 需求条目数 | 5 FR 组 + 8 NFR |
 | 对抗用例 | 6 条（T-S1~S6） |
 | 评测维度 | 4 类 |
-| 文档数 | 16 份（顶层）+ ADR 子目录 7 份 |
+| 文档数 | 17 份（顶层）+ ADR 子目录 7 份 |
 | 决策记录 | 5 条 ADR（[adr/](./adr/README.md)） |
-| 实现 | 未开始（待按 [ROADMAP](./ROADMAP.md) P0 启动） |
+| 执行提示词 | 30 条（[EXECUTION_GUIDE](./EXECUTION_GUIDE.md)） |
+| 实现 | 未开始（按 [EXECUTION_GUIDE](./EXECUTION_GUIDE.md) 顺序执行） |
 | 文档集版本 | docs-v1（见 [CHANGELOG](./CHANGELOG.md)） |

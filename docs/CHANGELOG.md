@@ -36,9 +36,11 @@
 - 新增 [DATA_CURATION.md](./DATA_CURATION.md) 知识库运营
 - 新增 [RELEASE.md](./RELEASE.md) 发布门禁
 - 新增 [adr/](./adr/) ADR 独立归档（含 ADR-001~004 迁入 + ADR-005 新增 + 模板）
+- 新增 [EXECUTION_GUIDE.md](./EXECUTION_GUIDE.md) 执行提示词列表（P0~P7 共 30 条）
 
 #### 文档更新
-- 更新 [README.md](../README.md) 文档索引：11 → 16 份，新增"工程运营层"
+- 更新 [README.md](../README.md) 文档索引：11 → 17 份，新增"工程运营层"与"执行层"
+- 更新 [TRACEABILITY.md](./TRACEABILITY.md) 文档主题表与状态汇总
 
 ### [v0.1.0-docs] - 2026-08-24
 
